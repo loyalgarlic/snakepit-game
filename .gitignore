@@ -60,3 +60,8 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+game.py.bak
+index.html.bak
+server.py.bak
+top_scores.txt
+.vscode/settings.json
