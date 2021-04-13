@@ -28,7 +28,7 @@ async def wshandler(request):
     player = None
     while True:
         msg = await ws.receive()
-        if msg.tp == web.MsgType.text:
+        if msg.type == web.WSMsgType.text:
             print("Got message %s" % msg.data)
 
             data = json.loads(msg.data)
@@ -49,7 +49,7 @@ async def wshandler(request):
 
                 game.join(player)
 
-        elif msg.tp == web.MsgType.close:
+        elif msg.type == web.WSMsgType.close:
             break
 
     if player:

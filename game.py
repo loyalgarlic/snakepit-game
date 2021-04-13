@@ -4,6 +4,7 @@ import json
 import settings
 from player import Player
 from datatypes import Char, Draw
+import asyncio
 
 
 class Game:
@@ -217,7 +218,7 @@ class Game:
 
     def send_personal(self, ws, *args):
         msg = json.dumps([args])
-        ws.send_str(msg)
+        asyncio.ensure_future(ws.send_str(msg))
 
     def send_all(self, *args):
         self.send_all_multi([args])
@@ -225,6 +226,6 @@ class Game:
     def send_all_multi(self, commands):
         msg = json.dumps(commands)
         for player in self._players.values():
-            if player.ws:
-                player.ws.send_str(msg)
+            if player.ws is not None:
+                asyncio.ensure_future(player.ws.send_str(msg))
 
